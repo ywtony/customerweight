@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <com.yw.ywlibrary.YwTitleLayout
+        android:id="@+id/titlebar"
+        android:layout_width="match_parent"
+        android:layout_height="47dp"
+        app:leftIcon="@mipmap/icon_toleft"
+        app:leftText="返回"
+        app:leftTextColor="@color/t333"
+        app:leftTextSize="13"
+        app:lefttMarginLeft="10dp"
+        app:rightIcon="@mipmap/icon_toleft"
+        app:rightMarginRight="10dp"
+        app:rightText="保存"
+        app:rightTextColor="@color/t999"
+        app:rightTextSize="18"
+        app:titleText="我是标题"
+        app:titleTextColor="@color/t333"
+        app:titleTextSize="18"
+        app:titlelayout_background_color="@color/white"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="您好啊"
+        android:textColor="@color/t333"
+        android:textSize="18sp" />
+</LinearLayout>
