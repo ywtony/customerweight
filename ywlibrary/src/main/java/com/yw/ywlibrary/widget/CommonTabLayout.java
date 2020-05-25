@@ -70,16 +70,10 @@ public class CommonTabLayout extends RadioGroup {
             @Override
             public void onCheckedChanged(RadioGroup group, final int checkedId) {
                 final RadioButton rbb = CommonTabLayout.this.findViewById(group.getCheckedRadioButtonId());
-                rbb.setOnClickListener(new OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        //设置RadioButton的选中事件
-                        if (onItemClickListener != null) {
-                            onItemClickListener.onItemClick((int) rbb.getTag());
-                        }
-                    }
-                });
-
+                //设置RadioButton的选中事件
+                if (onItemClickListener != null) {
+                    onItemClickListener.onItemClick((int) rbb.getTag());
+                }
             }
         });
     }
@@ -233,6 +227,7 @@ public class CommonTabLayout extends RadioGroup {
         int count = datas.size();
         for (int i = 0; i < count; i++) {
             final RadioButton rb = new RadioButton(getContext());
+            rb.setTag(i);
             //设置字体颜色
             rb.setTextColor(getResources().getColorStateList(colorSelector, getResources().newTheme()));
             //设置背景颜色
@@ -270,6 +265,7 @@ public class CommonTabLayout extends RadioGroup {
         int count = datas.size();
         for (int i = 0; i < count; i++) {
             final RadioButton rb = new RadioButton(getContext());
+            rb.setTag(i);
             //设置字体颜色
             rb.setTextColor(getResources().getColorStateList(colorSelector, getResources().newTheme()));
             //设置背景颜色
@@ -365,16 +361,17 @@ public class CommonTabLayout extends RadioGroup {
         //将所有状态置空
         int count = this.getChildCount();
         for (int i = 0; i < count; i++) {
-            ((LinearLayout)this.getChildAt(i)).getChildAt(1).setVisibility(View.GONE);
+            ((LinearLayout) this.getChildAt(i)).getChildAt(1).setVisibility(View.GONE);
         }
     }
 
     /**
      * 设置点击的view为选中状态
+     *
      * @param pos
      */
-    private void updateViewState(int pos){
-        ((LinearLayout)this.getChildAt(pos)).getChildAt(1).setVisibility(View.VISIBLE);
+    private void updateViewState(int pos) {
+        ((LinearLayout) this.getChildAt(pos)).getChildAt(1).setVisibility(View.VISIBLE);
     }
 
 

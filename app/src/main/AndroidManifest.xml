@@ -16,6 +16,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!--        通用的TabLayout-->
+        <activity android:name=".CommonTabLayoutActivity" />
     </application>
 
 </manifest>
