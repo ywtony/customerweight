@@ -7,11 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.yw.customerweight.adapter.MainAdapter;
-import com.yw.ywlibrary.YwTitleLayout;
-import com.yw.ywlibrary.widget.CommonTabLayout;
 
 import java.util.ArrayList;
 import java.util.Arrays;

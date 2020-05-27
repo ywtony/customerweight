@@ -1,4 +1,4 @@
-package com.yw.ywlibrary;
+package com.yw.ywlibrary.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.yw.ywlibrary.R;
 
 /**
  * 标题栏自定义控件

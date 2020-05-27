@@ -8,7 +8,7 @@ import androidx.annotation.Nullable;
 
 
 import com.yw.ywlibrary.util.PxUtils;
-import com.yw.ywlibrary.widget.CommonTabLayout;
+import com.yw.ywlibrary.widget.tab.CommonTabLayout;
 
 import java.util.ArrayList;
 import java.util.List;

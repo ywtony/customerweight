@@ -1,4 +1,4 @@
-package com.yw.ywlibrary.widget;
+package com.yw.ywlibrary.widget.tab;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -226,32 +226,37 @@ public class CommonTabLayout extends RadioGroup {
         this.removeAllViews();
         int count = datas.size();
         for (int i = 0; i < count; i++) {
-            final RadioButton rb = new RadioButton(getContext());
-            rb.setTag(i);
-            //设置字体颜色
-            rb.setTextColor(getResources().getColorStateList(colorSelector, getResources().newTheme()));
-            //设置背景颜色
-            if (i == 0) {
-                rb.setBackgroundResource(leftDrawableSelector);
-            } else if (i == count - 1) {
-                rb.setBackgroundResource(rightDrawableSelector);
-            } else {
-                rb.setBackgroundResource(middleDrawableSelector);
-            }
-            rb.setButtonDrawable(null);
-            rb.setGravity(Gravity.CENTER);
-            rb.setTag(i);
-//            rb.setTextSize(textSize);
-            //
-            rb.setText(datas.get(i));
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            params.weight = 1;
-            params.height = itemHeight;
-            rb.setLayoutParams(params);
-            this.addView(rb);
+            TabItem tabItem = new TabItem.Builder()
+                    .setIndex(i)
+                    .setItemHeight(itemHeight)
+//                    .setTextSize(textSize)
+                    .setColorSelector(colorSelector)
+                    .setValue(datas.get(i))
+                    .setBackgroundResourceSelector(getBackgroundResource(i, count))
+                    .build(getContext()).createTabItem();
+
+            this.addView(tabItem);
         }
         ((RadioButton) this.getChildAt(defaultIndex)).setChecked(true);
         return this;
+    }
+
+    /**
+     * 获取当前Item的Background
+     *
+     * @param i     当前item的index
+     * @param count 元素总数
+     * @return
+     */
+    private int getBackgroundResource(int i, int count) {
+        //设置背景颜色
+        if (i == 0) {
+            return leftDrawableSelector;
+        } else if (i == count - 1) {
+            return rightDrawableSelector;
+        } else {
+            return middleDrawableSelector;
+        }
     }
 
     /**
@@ -264,24 +269,15 @@ public class CommonTabLayout extends RadioGroup {
         this.removeAllViews();
         int count = datas.size();
         for (int i = 0; i < count; i++) {
-            final RadioButton rb = new RadioButton(getContext());
-            rb.setTag(i);
-            //设置字体颜色
-            rb.setTextColor(getResources().getColorStateList(colorSelector, getResources().newTheme()));
-            //设置背景颜色
-            rb.setBackgroundResource(leftDrawableSelector);
-            //
-            rb.setText(datas.get(i));
-            rb.setTag(i);
-            rb.setButtonDrawable(null);
-            rb.setGravity(Gravity.CENTER);
-            final int finalI = i;
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-            params.weight = 1;
-            params.height = itemHeight;
-            params.gravity = Gravity.CENTER;
-            rb.setLayoutParams(params);
-            this.addView(rb);
+            TabItem tabItem = new TabItem.Builder()
+                    .setIndex(i)
+                    .setItemHeight(itemHeight)
+//                    .setTextSize(textSize)
+                    .setColorSelector(colorSelector)
+                    .setValue(datas.get(i))
+                    .setBackgroundResourceSelector(getBackgroundResource(i, count))
+                    .build(getContext()).createTabItem();
+            this.addView(tabItem);
         }
         this.getChildAt(0).setBackgroundResource(leftDrawableSelector);
         this.getChildAt(1).setBackgroundResource(rightDrawableSelector);
