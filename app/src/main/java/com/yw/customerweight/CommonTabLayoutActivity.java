@@ -112,9 +112,9 @@ public class CommonTabLayoutActivity extends Activity {
         selectTabLayout4.
                 setData(datas4).
                 setTextColor(R.color.manager_radio_textcolor_selector).
-                setLeftDrawableSelector(R.drawable.drawable_selector).
-                setMiddleDrawableSelector(R.drawable.drawable_selector).
-                setRightDrawableSelector(R.drawable.drawable_selector).
+//                setLeftDrawableSelector(R.drawable.drawable_selector).
+//                setMiddleDrawableSelector(R.drawable.drawable_selector).
+//                setRightDrawableSelector(R.drawable.drawable_selector).
                 setDefaultSelectIndex(0).
                 setMargin(20,0,0,0).
                 setOnItemClickListener(new CommonTabLayout.OnItemClickListener() {
