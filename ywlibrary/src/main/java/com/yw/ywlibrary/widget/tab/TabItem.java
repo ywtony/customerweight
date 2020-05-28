@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.ViewGroup;
@@ -125,17 +126,20 @@ public class TabItem extends androidx.appcompat.widget.AppCompatRadioButton {
         }
 
 
-        public void setShowLine(boolean showLine) {
+        public Builder setShowLine(boolean showLine) {
             this.showLine = showLine;
+            return this;
         }
 
 
-        public void setLineColor(int lineColor) {
+        public Builder setLineColor(int lineColor) {
             this.lineColor = lineColor;
+            return this;
         }
 
-        public void setLineHeight(int lineHeight) {
+        public Builder setLineHeight(int lineHeight) {
             this.lineHeight = lineHeight;
+            return this;
         }
 
         /**

@@ -111,10 +111,10 @@ public class CommonTabLayoutActivity extends Activity {
          */
         selectTabLayout4.
                 setData(datas4).
-                setTextColor(R.color.manager_radio_textcolor_selector).
-//                setLeftDrawableSelector(R.drawable.drawable_selector).
-//                setMiddleDrawableSelector(R.drawable.drawable_selector).
-//                setRightDrawableSelector(R.drawable.drawable_selector).
+                setTextColor(R.color.main_real_estate_color).
+                setLeftDrawableSelector(R.drawable.main_real_enstate_bg_selector).
+                setMiddleDrawableSelector(R.drawable.main_real_enstate_bg_selector).
+                setRightDrawableSelector(R.drawable.main_real_enstate_bg_selector).
                 setDefaultSelectIndex(0).
                 setMargin(20,0,0,0).
                 setOnItemClickListener(new CommonTabLayout.OnItemClickListener() {
@@ -123,5 +123,32 @@ public class CommonTabLayoutActivity extends Activity {
                         Toast.makeText(CommonTabLayoutActivity.this, "您点击了其中的某一项:"+pos, Toast.LENGTH_SHORT).show();
                     }
                 }).buildViewByLeftMiddleRight();
+
+
+
+        CommonTabLayout selectTabLayout5 = (CommonTabLayout) findViewById(R.id.tablayout5);
+        List<String> datas5 = new ArrayList<>();
+        datas5.add("来电");
+        datas5.add("来访");
+        datas5.add("认购");
+        datas5.add("签约");
+        datas5.add("签约");
+        /**
+         * 创建一个左、中、右背景切换各不同的TabLayout（ps：也可以相同，看您怎样设置）
+         */
+        selectTabLayout5.
+                setData(datas5).
+                setTextColor(R.color.color_radio_textcolor_selector).
+                setLeftDrawableSelector(R.drawable.drawable_bottom_line_bg_selector).
+                setMiddleDrawableSelector(R.drawable.drawable_bottom_line_bg_selector).
+                setRightDrawableSelector(R.drawable.drawable_bottom_line_bg_selector).
+                setDefaultSelectIndex(0).
+//                setShowLine(true).setLineColor(R.color.color_333333).setLineHeight(10).
+                setOnItemClickListener(new CommonTabLayout.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(int pos) {
+                        Toast.makeText(CommonTabLayoutActivity.this, "您点击了其中的某一项:"+pos, Toast.LENGTH_SHORT).show();
+                    }
+                }).buildViewByBottomLine();
     }
 }

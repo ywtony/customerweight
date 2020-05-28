@@ -24,4 +24,10 @@
         android:layout_width="match_parent"
         android:layout_margin="20dp"
         android:layout_height="wrap_content"/>
+
+    <com.yw.ywlibrary.widget.tab.CommonTabLayout
+        android:id="@+id/tablayout5"
+        android:layout_width="match_parent"
+        android:layout_margin="20dp"
+        android:layout_height="wrap_content"/>
 </LinearLayout>

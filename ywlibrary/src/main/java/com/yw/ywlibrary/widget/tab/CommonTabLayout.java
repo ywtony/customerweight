@@ -54,7 +54,7 @@ public class CommonTabLayout extends RadioGroup {
     private int marginLeft, marginTop, marginRight, marginBottom;
     //默认线的颜色
     private int line_color;
-
+    private boolean isShowLine = false;
     public CommonTabLayout(Context context) {
         super(context);
     }
@@ -72,7 +72,11 @@ public class CommonTabLayout extends RadioGroup {
                 final RadioButton rbb = CommonTabLayout.this.findViewById(group.getCheckedRadioButtonId());
                 //设置RadioButton的选中事件
                 if (onItemClickListener != null) {
-                    onItemClickListener.onItemClick((int) rbb.getTag());
+                    int index = (int) rbb.getTag();
+                    if(isShowLine){
+                        CommonTabLayout.this.invalidate();
+                    }
+                    onItemClickListener.onItemClick(index);
                 }
             }
         });
@@ -111,6 +115,14 @@ public class CommonTabLayout extends RadioGroup {
         return this;
     }
 
+    /**
+     * 是否展示底部线
+     * @param showLine
+     */
+    public CommonTabLayout setShowLine(boolean showLine ){
+        this.isShowLine = showLine;
+        return this;
+    }
     /**
      * 设置右边的drawableSelector
      *
@@ -320,48 +332,67 @@ public class CommonTabLayout extends RadioGroup {
      * 主要解决Android库中原生的TabLayout中item下的那条线不是很好控制的问题
      */
     public CommonTabLayout buildViewByBottomLine() {
+//        int count = datas.size();
+//        for (int i = 0; i < count; i++) {
+//            LinearLayout linear = new LinearLayout(getContext());
+//            linear.setOrientation(VERTICAL);
+//            linear.setGravity(Gravity.CENTER);
+//            LayoutParams layoutParams = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
+//            layoutParams.weight = 1;
+//            layoutParams.height = itemHeight;
+//            layoutParams.gravity = Gravity.CENTER;
+//            linear.setBackgroundResource(middleDrawableSelector);
+//            linear.setLayoutParams(layoutParams);
+//            TextView tv_title = new TextView(getContext());
+//            tv_title.setText(datas.get(i));
+//            tv_title.setTextSize(textSize);
+//            tv_title.setTextColor(getContext().getColor(colorSelector));
+//            tv_title.setGravity(Gravity.CENTER);
+//            LinearLayout.LayoutParams titleparams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+//            titleparams.height = itemHeight - lineHeight;
+//            tv_title.setLayoutParams(titleparams);
+//            TextView tv_line = new TextView(getContext());
+//            tv_line.setBackgroundColor(getContext().getColor(line_color));
+//            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+//            params.height = lineHeight;
+//            params.setMargins(marginLeft, marginTop, marginRight, marginBottom);
+//            tv_line.setLayoutParams(params);
+//            tv_line.setVisibility(View.GONE);
+//            linear.addView(tv_title);
+//            linear.addView(tv_line);
+//            final int finalI = i;
+//            linear.setOnClickListener(new OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    resetViewSelected();
+//                    updateViewState(finalI);
+//                    if (onItemClickListener != null) {
+//                        onItemClickListener.onItemClick(finalI);
+//                    }
+//                }
+//            });
+//            this.addView(linear);
+//        }
+//        updateViewState(defaultIndex);
+        this.removeAllViews();
         int count = datas.size();
         for (int i = 0; i < count; i++) {
-            LinearLayout linear = new LinearLayout(getContext());
-            linear.setOrientation(VERTICAL);
-            linear.setGravity(Gravity.CENTER);
-            LayoutParams layoutParams = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
-            layoutParams.weight = 1;
-            layoutParams.height = itemHeight;
-            layoutParams.gravity = Gravity.CENTER;
-            linear.setBackgroundResource(middleDrawableSelector);
-            linear.setLayoutParams(layoutParams);
-            TextView tv_title = new TextView(getContext());
-            tv_title.setText(datas.get(i));
-            tv_title.setTextSize(textSize);
-            tv_title.setTextColor(getContext().getColor(colorSelector));
-            tv_title.setGravity(Gravity.CENTER);
-            LinearLayout.LayoutParams titleparams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-            titleparams.height = itemHeight - lineHeight;
-            tv_title.setLayoutParams(titleparams);
-            TextView tv_line = new TextView(getContext());
-            tv_line.setBackgroundColor(getContext().getColor(line_color));
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-            params.height = lineHeight;
-            params.setMargins(marginLeft, marginTop, marginRight, marginBottom);
-            tv_line.setLayoutParams(params);
-            tv_line.setVisibility(View.GONE);
-            linear.addView(tv_title);
-            linear.addView(tv_line);
-            final int finalI = i;
-            linear.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    resetViewSelected();
-                    updateViewState(finalI);
-                    if (onItemClickListener != null) {
-                        onItemClickListener.onItemClick(finalI);
-                    }
-                }
-            });
-            this.addView(linear);
+            TabItem tabItem = new TabItem.Builder()
+                    .setIndex(i)
+                    .setItemHeight(itemHeight)
+//                    .setTextSize(textSize)
+                    .setColorSelector(colorSelector)
+                    .setValue(datas.get(i))
+                    .setLeftMargin(getMarginLeft(i))
+                    .setBackgroundResourceSelector(getBackgroundResource(i, count))
+                    .setShowLine(true)
+                    .setLineColor(line_color)
+                    .setLineHeight(lineHeight)
+                    .build(getContext()).createTabItem();
+
+            this.addView(tabItem);
         }
-        updateViewState(defaultIndex);
+        ((RadioButton) this.getChildAt(defaultIndex)).setChecked(true);
         return this;
     }
 
