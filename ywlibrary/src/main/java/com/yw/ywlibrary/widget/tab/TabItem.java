@@ -20,8 +20,8 @@ public class TabItem extends androidx.appcompat.widget.AppCompatRadioButton {
     private int itemHeight;//当前View的高度
     private String value;//当前Item的值
     private float textSize = -1;//字体颜色
-
-    public TabItem(Context context, int colorSelector, int backgroundResourceSelector, int index, int itemHeight, String value, float textSize) {
+    private int leftMargin;//从第二个item开始左填充
+    public TabItem(Context context, int colorSelector, int backgroundResourceSelector, int index, int itemHeight, String value, float textSize,int leftMargin) {
         super(context);
         this.colorSelector = colorSelector;
         this.backgroundResourceSelector = backgroundResourceSelector;
@@ -29,6 +29,7 @@ public class TabItem extends androidx.appcompat.widget.AppCompatRadioButton {
         this.itemHeight = itemHeight;
         this.value = value;
         this.textSize = textSize;
+        this.leftMargin = leftMargin;
     }
 
     public TabItem(Context context) {
@@ -58,6 +59,7 @@ public class TabItem extends androidx.appcompat.widget.AppCompatRadioButton {
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         params.weight = 1;
         params.height = itemHeight;
+        params.setMargins(leftMargin,0,0,0);
         this.setLayoutParams(params);
         return this;
     }
@@ -69,7 +71,7 @@ public class TabItem extends androidx.appcompat.widget.AppCompatRadioButton {
         private int itemHeight;//当前View的高度
         private String value;//当前Item的值
         private float textSize = -1;//字体颜色
-
+        private int leftMargin;//从第二个item开始左填充
         public Builder setColorSelector(int colorSelector) {
             this.colorSelector = colorSelector;
             return this;
@@ -99,14 +101,17 @@ public class TabItem extends androidx.appcompat.widget.AppCompatRadioButton {
             this.textSize = textSize;
             return this;
         }
-
+        public Builder setLeftMargin(int margin){
+            this.leftMargin = margin;
+            return this;
+        }
         /**
          * 构建一个TabItem
          *
          * @return
          */
         public TabItem build(Context context) {
-            return new TabItem(context,colorSelector, backgroundResourceSelector, index, itemHeight, value, textSize);
+            return new TabItem(context,colorSelector, backgroundResourceSelector, index, itemHeight, value, textSize,leftMargin);
         }
     }
 }

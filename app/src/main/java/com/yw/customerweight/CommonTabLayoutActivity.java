@@ -99,5 +99,29 @@ public class CommonTabLayoutActivity extends Activity {
                     }
                 });
 
+
+        //有填充的Tab
+        CommonTabLayout selectTabLayout4 = (CommonTabLayout) findViewById(R.id.tablayout4);
+        List<String> datas4 = new ArrayList<>();
+        datas4.add("全部");
+        datas4.add("未付款");
+        datas4.add("已付款");
+        /**
+         * 创建一个左、中、右背景切换各不同的TabLayout（ps：也可以相同，看您怎样设置）
+         */
+        selectTabLayout4.
+                setData(datas4).
+                setTextColor(R.color.manager_radio_textcolor_selector).
+                setLeftDrawableSelector(R.drawable.drawable_selector).
+                setMiddleDrawableSelector(R.drawable.drawable_selector).
+                setRightDrawableSelector(R.drawable.drawable_selector).
+                setDefaultSelectIndex(0).
+                setMargin(20,0,0,0).
+                setOnItemClickListener(new CommonTabLayout.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(int pos) {
+                        Toast.makeText(CommonTabLayoutActivity.this, "您点击了其中的某一项:"+pos, Toast.LENGTH_SHORT).show();
+                    }
+                }).buildViewByLeftMiddleRight();
     }
 }

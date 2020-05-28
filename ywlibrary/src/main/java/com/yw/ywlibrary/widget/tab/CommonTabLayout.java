@@ -232,6 +232,7 @@ public class CommonTabLayout extends RadioGroup {
 //                    .setTextSize(textSize)
                     .setColorSelector(colorSelector)
                     .setValue(datas.get(i))
+                    .setLeftMargin(getMarginLeft(i))
                     .setBackgroundResourceSelector(getBackgroundResource(i, count))
                     .build(getContext()).createTabItem();
 
@@ -260,6 +261,19 @@ public class CommonTabLayout extends RadioGroup {
     }
 
     /**
+     * 从第二个item开始进行左填充
+     *
+     * @param index 单位是dp
+     * @return
+     */
+    private int getMarginLeft(int index) {
+        if (index > 0) {
+            return PxUtils.dp2px(getContext(),marginLeft);
+        }
+        return 0;
+    }
+
+    /**
      * 可以设置左背景和右背景的View
      */
     public CommonTabLayout buildViewByLeftRight() {
@@ -275,6 +289,7 @@ public class CommonTabLayout extends RadioGroup {
 //                    .setTextSize(textSize)
                     .setColorSelector(colorSelector)
                     .setValue(datas.get(i))
+                    .setLeftMargin(getMarginLeft(i))
                     .setBackgroundResourceSelector(getBackgroundResource(i, count))
                     .build(getContext()).createTabItem();
             this.addView(tabItem);
