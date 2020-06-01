@@ -1,17 +1,12 @@
 package com.yw.ywlibrary.widget.tab;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.os.Build;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
-
-import com.yw.ywlibrary.util.PxUtils;
 
 /**
  * description: TabLayout中的每一项
@@ -19,7 +14,8 @@ import com.yw.ywlibrary.util.PxUtils;
  * @author 杨伟-tony
  * create by 2020/5/27 9:09
  */
-public class TabItem extends androidx.appcompat.widget.AppCompatRadioButton {
+@SuppressLint("AppCompatCustomView")
+public class TabItem extends RadioButton {
     private int colorSelector;//选中和未选中的颜色
     private int backgroundResourceSelector;//选中和未选中的背景颜色
     private int index;//当前View在父容器中的位置
@@ -27,11 +23,8 @@ public class TabItem extends androidx.appcompat.widget.AppCompatRadioButton {
     private String value;//当前Item的值
     private float textSize = -1;//字体颜色
     private int leftMargin;//从第二个item开始左填充
-    private boolean showLine;//是否展示下划线 true展示，false不展示
-    private int lineColor;//下划线的颜色
-    private int lineHeight;//线的高度
 
-    public TabItem(Context context, int colorSelector, int backgroundResourceSelector, int index, int itemHeight, String value, float textSize, int leftMargin, boolean showLine, int lineColor, int lineHeight) {
+    public TabItem(Context context, int colorSelector, int backgroundResourceSelector, int index, int itemHeight, String value, float textSize, int leftMargin) {
         super(context);
         this.colorSelector = colorSelector;
         this.backgroundResourceSelector = backgroundResourceSelector;
@@ -40,9 +33,6 @@ public class TabItem extends androidx.appcompat.widget.AppCompatRadioButton {
         this.value = value;
         this.textSize = textSize;
         this.leftMargin = leftMargin;
-        this.showLine = showLine;
-        this.lineColor = lineColor;
-        this.lineHeight = lineHeight;
     }
 
     public TabItem(Context context) {
@@ -86,9 +76,6 @@ public class TabItem extends androidx.appcompat.widget.AppCompatRadioButton {
         private String value;//当前Item的值
         private float textSize = -1;//字体颜色
         private int leftMargin;//从第二个item开始左填充
-        private boolean showLine;//是否展示下划线 true展示，false不展示
-        private int lineColor;//下划线的颜色
-        private int lineHeight;//线的高度
 
         public Builder setColorSelector(int colorSelector) {
             this.colorSelector = colorSelector;
@@ -126,42 +113,15 @@ public class TabItem extends androidx.appcompat.widget.AppCompatRadioButton {
         }
 
 
-        public Builder setShowLine(boolean showLine) {
-            this.showLine = showLine;
-            return this;
-        }
-
-
-        public Builder setLineColor(int lineColor) {
-            this.lineColor = lineColor;
-            return this;
-        }
-
-        public Builder setLineHeight(int lineHeight) {
-            this.lineHeight = lineHeight;
-            return this;
-        }
-
         /**
          * 构建一个TabItem
          *
          * @return
          */
         public TabItem build(Context context) {
-            return new TabItem(context, colorSelector, backgroundResourceSelector, index, itemHeight, value, textSize, leftMargin, showLine, lineColor, lineHeight);
+            return new TabItem(context, colorSelector, backgroundResourceSelector, index, itemHeight, value, textSize, leftMargin);
         }
     }
 
-    @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
-        if (showLine) {
-            if (this.isChecked()) {
-                Paint paint = new Paint();
-                paint.setStrokeWidth(PxUtils.dp2px(getContext(), lineHeight));
-                paint.setColor(lineColor);
-                canvas.drawLine(this.getLeft(), this.getBottom(), this.getRight(), this.getBottom(), paint);
-            }
-        }
-    }
+
 }

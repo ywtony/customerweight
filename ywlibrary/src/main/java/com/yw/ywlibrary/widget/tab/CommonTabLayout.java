@@ -7,6 +7,7 @@ import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -55,6 +56,8 @@ public class CommonTabLayout extends RadioGroup {
     //默认线的颜色
     private int line_color;
     private boolean isShowLine = false;
+    //tabitem的背景颜色
+    private int backgroundColor;
     public CommonTabLayout(Context context) {
         super(context);
     }
@@ -73,9 +76,6 @@ public class CommonTabLayout extends RadioGroup {
                 //设置RadioButton的选中事件
                 if (onItemClickListener != null) {
                     int index = (int) rbb.getTag();
-                    if(isShowLine){
-                        CommonTabLayout.this.invalidate();
-                    }
                     onItemClickListener.onItemClick(index);
                 }
             }
@@ -115,6 +115,15 @@ public class CommonTabLayout extends RadioGroup {
         return this;
     }
 
+    /**
+     * 设置Tab的背景颜色
+     * @param backgroundColor
+     * @return
+     */
+    public CommonTabLayout setTabBackgroundColor(int backgroundColor){
+        this.backgroundColor = backgroundColor;
+        return this;
+    }
     /**
      * 是否展示底部线
      * @param showLine
@@ -332,8 +341,8 @@ public class CommonTabLayout extends RadioGroup {
      * 主要解决Android库中原生的TabLayout中item下的那条线不是很好控制的问题
      */
     public CommonTabLayout buildViewByBottomLine() {
-//        int count = datas.size();
-//        for (int i = 0; i < count; i++) {
+        int count = datas.size();
+        for (int i = 0; i < count; i++) {
 //            LinearLayout linear = new LinearLayout(getContext());
 //            linear.setOrientation(VERTICAL);
 //            linear.setGravity(Gravity.CENTER);
@@ -345,7 +354,7 @@ public class CommonTabLayout extends RadioGroup {
 //            linear.setLayoutParams(layoutParams);
 //            TextView tv_title = new TextView(getContext());
 //            tv_title.setText(datas.get(i));
-//            tv_title.setTextSize(textSize);
+////            tv_title.setTextSize(textSize);
 //            tv_title.setTextColor(getContext().getColor(colorSelector));
 //            tv_title.setGravity(Gravity.CENTER);
 //            LinearLayout.LayoutParams titleparams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
@@ -371,28 +380,24 @@ public class CommonTabLayout extends RadioGroup {
 //                    }
 //                }
 //            });
-//            this.addView(linear);
-//        }
-//        updateViewState(defaultIndex);
-        this.removeAllViews();
-        int count = datas.size();
-        for (int i = 0; i < count; i++) {
-            TabItem tabItem = new TabItem.Builder()
-                    .setIndex(i)
-                    .setItemHeight(itemHeight)
-//                    .setTextSize(textSize)
+            TabItemBottomLine bottomLine = new TabItemBottomLine.Builder()
+                    .setBackgroundColor(backgroundColor)
                     .setColorSelector(colorSelector)
+                    .setBackgroundResource(middleDrawableSelector)
                     .setValue(datas.get(i))
-                    .setLeftMargin(getMarginLeft(i))
-                    .setBackgroundResourceSelector(getBackgroundResource(i, count))
-                    .setShowLine(true)
-                    .setLineColor(line_color)
-                    .setLineHeight(lineHeight)
-                    .build(getContext()).createTabItem();
-
-            this.addView(tabItem);
+                    .build(getContext())
+                    .buildBottomLine();
+            final int finalI = i;
+            bottomLine.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    resetViewSelected();
+                    updateViewState(finalI);
+                }
+            });
+            this.addView(bottomLine);
         }
-        ((RadioButton) this.getChildAt(defaultIndex)).setChecked(true);
+        updateViewState(defaultIndex);
         return this;
     }
 
@@ -403,7 +408,8 @@ public class CommonTabLayout extends RadioGroup {
         //将所有状态置空
         int count = this.getChildCount();
         for (int i = 0; i < count; i++) {
-            ((LinearLayout) this.getChildAt(i)).getChildAt(1).setVisibility(View.GONE);
+            ((RadioButton)((LinearLayout)this.getChildAt(i)).getChildAt(0)).setChecked(false);
+            postInvalidate();
         }
     }
 
@@ -413,7 +419,7 @@ public class CommonTabLayout extends RadioGroup {
      * @param pos
      */
     private void updateViewState(int pos) {
-        ((LinearLayout) this.getChildAt(pos)).getChildAt(1).setVisibility(View.VISIBLE);
+        ((RadioButton)((LinearLayout)this.getChildAt(pos)).getChildAt(0)).setChecked(true);
     }
 
 

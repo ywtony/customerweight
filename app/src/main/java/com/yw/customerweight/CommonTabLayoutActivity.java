@@ -26,11 +26,11 @@ public class CommonTabLayoutActivity extends Activity {
         setContentView(R.layout.selecttablayout);
         CommonTabLayout selectTabLayout = (CommonTabLayout) findViewById(R.id.tablayout);
         List<String> datas = new ArrayList<>();
-        datas.add("来电");
-        datas.add("来访");
-        datas.add("认购");
-        datas.add("签约");
-        datas.add("签约");
+        datas.add("Item1");
+        datas.add("Item2");
+        datas.add("Item3");
+        datas.add("Item4");
+        datas.add("Item5");
         /**
          * 创建一个左、中、右背景切换各不同的TabLayout（ps：也可以相同，看您怎样设置）
          */
@@ -128,22 +128,25 @@ public class CommonTabLayoutActivity extends Activity {
 
         CommonTabLayout selectTabLayout5 = (CommonTabLayout) findViewById(R.id.tablayout5);
         List<String> datas5 = new ArrayList<>();
-        datas5.add("来电");
-        datas5.add("来访");
-        datas5.add("认购");
-        datas5.add("签约");
-        datas5.add("签约");
+        datas5.add("Item1");
+        datas5.add("Item1");
+        datas5.add("Item1");
+        datas5.add("Item1");
+        datas5.add("Item1");
         /**
          * 创建一个左、中、右背景切换各不同的TabLayout（ps：也可以相同，看您怎样设置）
          */
         selectTabLayout5.
                 setData(datas5).
                 setTextColor(R.color.color_radio_textcolor_selector).
-                setLeftDrawableSelector(R.drawable.drawable_bottom_line_bg_selector).
+//                setLeftDrawableSelector(R.drawable.drawable_bottom_line_bg_selector).
                 setMiddleDrawableSelector(R.drawable.drawable_bottom_line_bg_selector).
-                setRightDrawableSelector(R.drawable.drawable_bottom_line_bg_selector).
+//                setRightDrawableSelector(R.drawable.drawable_bottom_line_bg_selector).
                 setDefaultSelectIndex(0).
-//                setShowLine(true).setLineColor(R.color.color_333333).setLineHeight(10).
+                setShowLine(true).
+//                setLineColor(R.color.color_333333).
+//                setLineHeight(10).
+                setTabBackgroundColor(R.color.white).
                 setOnItemClickListener(new CommonTabLayout.OnItemClickListener() {
                     @Override
                     public void onItemClick(int pos) {
