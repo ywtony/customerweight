@@ -14,3 +14,6 @@ Step 2. Add the dependency
 	        implementation 'com.github.ywtony:customerweight:Tag'
 	}
 
+
+使用方法：
+https://www.cnblogs.com/tony-yang-flutter/p/13024033.html
