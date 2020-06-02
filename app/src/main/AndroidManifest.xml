@@ -18,6 +18,7 @@
         </activity>
         <!--        通用的TabLayout-->
         <activity android:name=".CommonTabLayoutActivity" />
+        <activity android:name=".SortTabLayoutActivity"/>
     </application>
 
 </manifest>

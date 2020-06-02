@@ -2,5 +2,6 @@
     <string name="app_name">CommonTabLayout</string>
     <string-array name="classNames">
         <item>com.yw.customerweight.CommonTabLayoutActivity</item>
+        <item>com.yw.customerweight.SortTabLayoutActivity</item>
     </string-array>
 </resources>
